@@ -23,3 +23,7 @@ Route::get('/orderForm',function(){
 })->name('orderForm');
 
 Route::post('/sendOrderData',[\App\Http\Controllers\orderFormController::class,'sendOrder'])->name('sendOrderData');
+
+Route::get('/sendPhoto',function(\App\Services\Telegram $telegram){
+    $telegram->sendPhoto(1867965641,'1.jpeg');
+});
