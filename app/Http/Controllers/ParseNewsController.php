@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\ParseNews;
+use App\Models\User;
 use App\Services\XMLParse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ParseNewsController extends Controller
 {
     public function ParseNews(XMLParse $parseService){
+        dd(User::find(1)->get());
+        Gate::authorize('start-parse');
         $links = [
             'https://lenta.ru/rss/news',
             'https://news.yandex.ru/auto.rss',
