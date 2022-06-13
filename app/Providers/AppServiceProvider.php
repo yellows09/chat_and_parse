@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Services\GetUserInformation;
+use App\Services\PaymentService;
 use App\Services\Telegram;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\ServiceProvider;
@@ -22,6 +23,9 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->bind(GetUserInformation::class,function(){
             return new GetUserInformation(new Agent());
+        });
+        $this->app->bind(PaymentService::class,function (){
+            return new PaymentService();
         });
     }
 

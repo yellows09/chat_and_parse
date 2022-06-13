@@ -22,7 +22,11 @@ class EventServiceProvider extends ServiceProvider
         ],
         OrderEvent::class => [
             OrderListener::class
-        ]
+        ],
+        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+            // ... other providers
+            \SocialiteProviders\VKontakte\VKontakteExtendSocialite::class.'@handle',
+        ],
     ];
 
     /**

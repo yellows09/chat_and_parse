@@ -11,11 +11,13 @@
         "laravel/framework": "^9.11",
         "laravel/passport": "^10.4",
         "laravel/sanctum": "^2.14.1",
+        "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.7",
         "metaseller/tinkoff-invest-api-v2-php": "^0.3.5",
         "orchestra/parser": "^7.0",
         "predis/predis": "^1.1",
-      "ext-http": "*"
+        "socialiteproviders/vkontakte": "^4.2",
+        "yoomoney/yookassa-sdk-php": "^2.4"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

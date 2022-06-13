@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 Route::get('/parseData', [\App\Http\Controllers\ParseNewsController::class, 'ParseNews'])->name('parseData');
 
 Route::get('/orderForm', function () {
@@ -32,11 +32,24 @@ Route::get('/sendPhoto', function (\App\Services\Telegram $telegram) {
 Route::get('/mapTest', function (\App\Services\GetUserInformation $information) {
     $hash = \Illuminate\Support\Facades\Hash::make(123);
     var_dump($information->getAll());
-})->middleware('IpCheck');
+})->middleware('auth');
 
-Route::get('/loginForm',function(){
+Route::get('/loginForm', function () {
     return view('login');
 });
 
-Route::post('/login',\App\Http\Controllers\Auth\LoginController::class)->name('login');
+Route::post('/login', \App\Http\Controllers\Auth\LoginController::class)->name('login');
 //t.uwhyBs4jk9qs6JqOdUaxTiH7Sv6CmBi24HsOSZrjxyb0FrzXZOk4sX3YJGi6aCwjZ74gce_gzb6AEM2wL097iw
+Route::get('/logout', function () {
+    \Illuminate\Support\Facades\Auth::logout();
+    return redirect()->route('home');
+})->name('logout');
+
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('/vk/auth', [\App\Http\Controllers\SocialController::class, 'redirect']);
+    Route::get('/vk/auth/callback', [\App\Http\Controllers\SocialController::class, 'callback']);
+});
+
+Route::match(['GET', 'POST'], '/payments/callback', [\App\Http\Controllers\PaymentController::class, 'callback'])->name('payment.callback');
+Route::post('/test', [\App\Http\Controllers\PaymentController::class, 'create'])->name('payment.create');
+Route::get('/payments',[\App\Http\Controllers\PaymentController::class,'index'])->name('payment.index');
